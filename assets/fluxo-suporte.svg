@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="180" viewBox="0 0 960 180" role="img" aria-labelledby="title desc">
+<title id="title">Fluxo de atendimento COREdesk</title><desc id="desc">Três etapas: solicitação, acompanhamento e resolução.</desc>
+<rect width="960" height="180" rx="22" fill="#FCF9F6"/>
+<g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+<g transform="translate(25 20)"><rect width="270" height="140" rx="18" fill="#fff" stroke="#E9DDE1"/><circle cx="135" cy="41" r="24" fill="#F3E6EB"/><path d="M125 34h20M125 43h20M125 52h13" stroke="#68263C" stroke-width="3" stroke-linecap="round"/><text x="135" y="89" fill="#27252B" font-size="18" font-weight="bold">Abrir chamado</text><text x="135" y="111" fill="#6E6470" font-size="12">Registrar a solicitação</text></g>
+<path d="M310 90h20m-8-8 8 8-8 8" fill="none" stroke="#B18C57" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<g transform="translate(345 20)"><rect width="270" height="140" rx="18" fill="#fff" stroke="#E9DDE1"/><circle cx="135" cy="41" r="24" fill="#F3E6EB"/><path d="M125 41l7 7 15-17" fill="none" stroke="#68263C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="135" y="89" fill="#27252B" font-size="18" font-weight="bold">Acompanhar</text><text x="135" y="111" fill="#6E6470" font-size="12">Conferir o andamento</text></g>
+<path d="M630 90h20m-8-8 8 8-8 8" fill="none" stroke="#B18C57" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<g transform="translate(665 20)"><rect width="270" height="140" rx="18" fill="#fff" stroke="#E9DDE1"/><circle cx="135" cy="41" r="24" fill="#F3E6EB"/><path d="M123 43l8 8 17-21" fill="none" stroke="#68263C" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><text x="135" y="89" fill="#27252B" font-size="18" font-weight="bold">Resolver</text><text x="135" y="111" fill="#6E6470" font-size="12">Concluir o atendimento</text></g>
+</g></svg>
