@@ -30,7 +30,7 @@ COREdesk/
 ## Funcionalidades
 
 - Página institucional com carrossel, cards, imagem SVG de fluxo, ilustrações em CSS, formulário de contato e rodapé.
-- Login demonstrativo com perfis Colaborador e Técnico.
+- Abertura direta no painel interno como Técnico de TI. Use **Trocar perfil** para testar a visão de Colaborador.
 - Dashboard com indicadores de chamados e gráficos calculados a partir dos dados.
 - Cadastro de chamados com validação de formulário e identificador único.
 - Pesquisa e filtros por status, prioridade e categoria.

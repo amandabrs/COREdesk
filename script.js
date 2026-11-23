@@ -199,7 +199,6 @@ function showPage(which) {
   $('#appPage').classList.toggle('hidden', which !== 'app');
   $('.public-header').classList.toggle('hidden', which !== 'home');
   $('#publicFooter').classList.toggle('hidden', which !== 'home');
-  document.querySelector('main').id = which === 'home' ? 'main' : 'appMain';
   window.scrollTo(0, 0);
 }
 
@@ -241,10 +240,11 @@ function setUserInfo() {
   $('#requesterEmail').value = p.email;
 }
 function logout() {
-  sessionStorage.removeItem(PROFILE_KEY);
+  sessionStorage.setItem(PROFILE_KEY, 'login');
   activeProfile = null;
-  showPage('home');
-  notify('Você saiu do ambiente demonstrativo.');
+  showPage('login');
+  $('#loginHeading').setAttribute('tabindex', '-1');
+  $('#loginHeading').focus();
 }
 
 // O técnico vê todos os chamados. O colaborador vê os chamados vinculados ao seu perfil.
@@ -714,11 +714,15 @@ function init() {
   applyTheme(localStorage.getItem(THEME_KEY) === 'dark' ? 'dark' : 'light');
   applyFont(parseFloat(localStorage.getItem(FONT_KEY)) || 1);
   const saved = sessionStorage.getItem(PROFILE_KEY);
-  if (saved && profiles[saved]) {
-    activeProfile = saved;
-    setUserInfo();
-    showPage('app');
-    openView('dashboard');
-  } else showPage('home');
+  if (saved === 'login') {
+    showPage('login');
+    return;
+  }
+
+  // A demonstração começa na área interna com a visão completa da equipe de TI.
+  activeProfile = Object.hasOwn(profiles, saved) ? saved : 'tecnico';
+  setUserInfo();
+  showPage('app');
+  openView('dashboard');
 }
 document.addEventListener('DOMContentLoaded', init);
