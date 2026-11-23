@@ -1,4 +1,4 @@
-# Portal Novara — Central Inteligente de Chamados de TI
+# Novara — Central Inteligente de Chamados de TI
 
 Protótipo acadêmico front-end para registro e gerenciamento de chamados de suporte técnico, desenvolvido com HTML, CSS e JavaScript puro.
 
@@ -21,9 +21,11 @@ Não utiliza backend, banco de dados ou IA. O acesso é demonstrativo e não ofe
 COREdesk/
 ├── index.html
 ├── style.css
+├── accounts.js
 ├── script.js
 ├── assets/
-│   └── fluxo-suporte.svg
+│   ├── fluxo-suporte.svg
+│   └── novara.svg
 └── README.md
 ```
 
@@ -45,6 +47,8 @@ Abra o arquivo `index.html` em um navegador moderno, ou use uma extensão de ser
 
 ### Acesso demonstrativo
 
+Em **Meu perfil**, cada pessoa pode editar o nome exibido no painel, telefone, ramal e foto. Em **Trocar perfil → Experimentar perfil de administrador**, crie um convite simulado válido por 24 horas. O primeiro acesso e os dados de conta funcionam no mesmo navegador.
+
 A Novara TI é a empresa fictícia do portal. Login, abertura de chamados e formulário de contato aceitam apenas endereços no domínio exato `@novarati.com`. A validação ocorre no navegador e não verifica a propriedade da conta.
 
 **Colaborador:** `colaborador@novarati.com` / `demo123`
@@ -63,13 +67,12 @@ Para testar os dados de fábrica novamente, remova a chave `coredesk_tickets_v1`
 
 | Papel | Cor |
 |---|---|
-| Fundo principal | `#FAF8F0` |
-| Superfície | `#FFFFFF` |
-| Verde floresta (menu) | `#1B3528` |
-| Verde (ações) | `#276647` |
-| Areia (destaques) | `#E5D4AB` |
+| Fundo do painel | #F6F3FA |
+| Ação | #713492 |
+| Destaque lilás | #F0E6F6 |
+| Marca | #64283F |
 
-O verde floresta diferencia a navegação e o verde médio identifica as ações. A areia destaca elementos secundários sobre superfícies claras. O tema escuro usa verdes mais profundos com texto claro.
+O painel usa lilás claro, roxo e a marca em vinho. O rodapé identifica Amanda Barros como desenvolvedora.
 
 ## Acessibilidade
 

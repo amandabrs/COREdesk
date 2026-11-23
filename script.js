@@ -280,9 +280,25 @@ function login(event) {
 function setUserInfo() {
   if (!activeProfile) return;
   const p = profiles[activeProfile];
+  $('#usersNav').classList.toggle('hidden', activeProfile !== 'admin');
   $('#userName').textContent = p.name;
   $('#userRole').textContent = p.role;
-  $('#avatar').textContent = p.name.charAt(0);
+  const personal = JSON.parse(localStorage.getItem('novara_profile_' + p.email) || '{}');
+  const fields = $('#profileForm').elements;
+  $('#profileForm').reset();
+  fields.displayName.value = personal.name || p.name;
+  fields.phone.value = personal.phone || '';
+  fields.extension.value = personal.extension || '';
+  $('#userName').textContent = fields.displayName.value;
+  $('#dashboardUserName').textContent = fields.displayName.value;
+  const avatar = $('#avatar');
+  avatar.textContent = fields.displayName.value.charAt(0);
+  if (personal.photo) {
+    const image = document.createElement('img');
+    image.alt = '';
+    image.src = personal.photo;
+    avatar.replaceChildren(image);
+  }
   $('#requesterInput').value = p.name;
   $('#requesterEmail').value = p.email;
 }
@@ -296,10 +312,11 @@ function logout() {
 
 // O técnico vê todos os chamados. O colaborador vê os chamados vinculados ao seu perfil.
 function visibleTickets() {
-  return activeProfile === 'tecnico'
+  return ['tecnico', 'admin'].includes(activeProfile)
     ? tickets
     : tickets.filter(
-        (ticket) => (ticket.createdBy ?? ticket.email.toLowerCase()) === profiles.colaborador.email,
+        (ticket) =>
+          (ticket.createdBy ?? ticket.email.toLowerCase()) === profiles[activeProfile].email,
       );
 }
 function openView(name) {
@@ -318,6 +335,8 @@ function openView(name) {
     new: 'Novo chamado',
     reports: 'Relatórios',
     settings: 'Configurações',
+    profile: 'Meu perfil',
+    users: 'Funcionários',
   }[name];
   $('#sidebar').classList.remove('open');
   if (name === 'dashboard') renderDashboard();
@@ -558,7 +577,7 @@ function openTicketModal(id) {
   body.append(desc);
   const actions = $('#modalActions');
   actions.replaceChildren();
-  if (activeProfile === 'tecnico') {
+  if (['tecnico', 'admin'].includes(activeProfile)) {
     const label = textElement('label', 'Alterar status');
     const select = document.createElement('select');
     select.id = 'ticketModalStatus';
@@ -675,7 +694,49 @@ function renderSlide() {
 }
 
 // Conecta os controles da interface aos eventos do navegador.
+async function savePersonalProfile(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const key = 'novara_profile_' + profiles[activeProfile].email;
+  const previous = JSON.parse(localStorage.getItem(key) || '{}');
+  let photo = form.elements.removePhoto.checked ? '' : previous.photo;
+  const file = form.elements.photo.files[0];
+  try {
+    if (file && !form.elements.removePhoto.checked) {
+      if (!['image/jpeg', 'image/png'].includes(file.type) || file.size > 1024 * 1024) {
+        notify('Escolha uma foto JPG ou PNG de até 1 MB.');
+        return;
+      }
+      photo = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+    const name = form.elements.displayName.value.trim();
+    if (!name) {
+      notify('Preencha o nome de exibição.');
+      return;
+    }
+    localStorage.setItem(
+      key,
+      JSON.stringify({
+        name,
+        phone: form.elements.phone.value.trim(),
+        extension: form.elements.extension.value.trim(),
+        photo,
+      }),
+    );
+    setUserInfo();
+    notify('Perfil atualizado.');
+  } catch {
+    notify('Não foi possível salvar o perfil neste navegador.');
+  }
+}
+
 function wireEvents() {
+  $('#profileForm').addEventListener('submit', savePersonalProfile);
   $$('[data-action=login]').forEach((b) => b.addEventListener('click', () => showPage('login')));
   $$('[data-action=home]').forEach((b) =>
     b.addEventListener('click', (e) => {

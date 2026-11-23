@@ -3,13 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta
-      name="description"
-      content="Portal Novara: protótipo acadêmico de central de chamados de TI."
-    />
-    <title>Portal Novara | Central Inteligente de Chamados</title>
+    <meta name="description" content="Novara: protótipo acadêmico de central de chamados de TI." />
+    <link rel="icon" href="assets/novara.svg" />
+    <title>Novara | Central Inteligente de Chamados</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
+    <script src="accounts.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Pular para o conteúdo</a>
@@ -18,7 +17,7 @@
     <div id="site">
       <header class="public-header hidden">
         <a href="#" class="brand" data-action="home"
-          ><span class="brand-icon">◈</span> Portal <span>Novara</span></a
+          ><img class="marca" src="assets/novara.svg" alt="" /> Novara</a
         >
         <nav aria-label="Navegação principal">
           <a href="#beneficios">Benefícios</a><a href="#como-funciona">Como funciona</a
@@ -41,7 +40,7 @@
               </p>
               <div class="hero-actions">
                 <button class="btn primary" data-action="login">
-                  Acessar o Portal Novara <span aria-hidden="true">→</span></button
+                  Acessar o Novara <span aria-hidden="true">→</span></button
                 ><a class="btn outline" href="#como-funciona">Como funciona</a>
               </div>
               <div class="hero-proof">
@@ -103,11 +102,7 @@
               <span class="eyebrow">NOSSA PLATAFORMA</span>
               <h2>Uma experiência pensada para seu time.</h2>
             </div>
-            <div
-              class="slider"
-              aria-roledescription="carrossel"
-              aria-label="Benefícios do Portal Novara"
-            >
+            <div class="slider" aria-roledescription="carrossel" aria-label="Benefícios do Novara">
               <button class="circle-btn" id="prevSlide" aria-label="Slide anterior">‹</button>
               <div class="slide-body">
                 <span id="slideNumber" class="eyebrow">01 / 03</span>
@@ -153,7 +148,7 @@
                 height="180"
                 loading="lazy"
               />
-              <figcaption>Fluxo simplificado de atendimento do Portal Novara.</figcaption>
+              <figcaption>Fluxo simplificado de atendimento do Novara.</figcaption>
             </figure>
           </section>
           <section class="section contact-section" id="contato">
@@ -200,7 +195,7 @@
         <section id="loginPage" class="login-page hidden" aria-labelledby="loginHeading">
           <div class="login-visual">
             <a href="#" class="brand light-brand" data-action="home"
-              >◈ Portal <span>Novara</span></a
+              ><img class="marca" src="assets/novara.svg" alt="" /> Novara</a
             >
             <div>
               <h2>Central de suporte de TI</h2>
@@ -221,6 +216,18 @@
                   ▣ Técnico de TI
                 </button>
               </div>
+              <form id="activateForm" class="hidden">
+                <h2>Primeiro acesso</h2>
+                <p id="inviteIdentity"></p>
+                <label
+                  >Crie sua senha (mínimo de 12 caracteres)<input
+                    name="password"
+                    minlength="12"
+                    required
+                    type="password"
+                    autocomplete="new-password" /></label
+                ><button class="btn primary">Ativar minha conta</button>
+              </form>
               <form id="loginForm">
                 <label
                   >E-mail<input
@@ -248,16 +255,38 @@
                   Entrar no sistema <span aria-hidden="true">→</span>
                 </button>
               </form>
+              <details>
+                <summary>Entrar com conta cadastrada</summary>
+                <form id="staffLogin">
+                  <label
+                    >E-mail corporativo<input
+                      name="email"
+                      type="email"
+                      required
+                      autocomplete="username" /></label
+                  ><label
+                    >Senha<input
+                      name="password"
+                      type="password"
+                      required
+                      autocomplete="current-password" /></label
+                  ><button class="btn primary">Entrar</button>
+                </form>
+              </details>
+              <button type="button" id="adminDemo" class="text-button">
+                Experimentar perfil de administrador
+              </button>
               <p class="login-notice">Ambiente demonstrativo. Não informe senhas reais.</p>
             </div>
           </div>
         </section>
 
         <!-- Área interna com navegação e telas exibidas conforme a ação do usuário. -->
-        <section id="appPage" class="app-page hidden" aria-label="Sistema Portal Novara">
+        <section id="appPage" class="app-page hidden" aria-label="Sistema Novara">
           <aside id="sidebar" class="sidebar">
             <div class="sidebar-top">
-              <span class="brand light-brand">◈ Portal <span>Novara</span></span
+              <span class="brand light-brand"
+                ><img class="marca" src="assets/novara.svg" alt="" /> Novara</span
               ><button id="closeMenu" class="icon-button mobile-only" aria-label="Fechar menu">
                 ×
               </button>
@@ -265,11 +294,113 @@
             <div class="side-label">MENU PRINCIPAL</div>
             <nav class="side-nav" aria-label="Menu do sistema">
               <button class="nav-item active" data-view="dashboard">
-                <span>▦</span> Visão geral</button
-              ><button class="nav-item" data-view="tickets"><span>☷</span> Chamados</button
-              ><button class="nav-item" data-view="new"><span>⊕</span> Novo chamado</button
-              ><button class="nav-item" data-view="reports"><span>▥</span> Relatórios</button
-              ><button class="nav-item" data-view="settings"><span>⚙</span> Configurações</button>
+                <svg
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z" />
+                </svg>
+                Visão geral</button
+              ><button class="nav-item" data-view="tickets">
+                <svg
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 6h18v4a2 2 0 0 0 0 4v4H3v-4a2 2 0 0 0 0-4z" />
+                </svg>
+                Chamados</button
+              ><button class="nav-item" data-view="new">
+                <svg
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 4v16M4 12h16" />
+                </svg>
+                Novo chamado</button
+              ><button class="nav-item" data-view="reports">
+                <svg
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 3v17h18M7 15v-4m5 4V7m5 8v-6" />
+                </svg>
+                Relatórios</button
+              ><button id="usersNav" class="nav-item hidden" data-view="users">
+                <svg
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M9 4a4 4 0 1 0 0 8a4 4 0 0 0 0-8M2 21a7 7 0 0 1 14 0m2-15a3 3 0 0 1 0 6m0 3a5 5 0 0 1 4 5"
+                  />
+                </svg>
+                Funcionários</button
+              ><button class="nav-item" data-view="profile">
+                <svg
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 3a4 4 0 1 0 0 8a4 4 0 0 0 0-8M4 21a8 8 0 0 1 16 0" />
+                </svg>
+                Meu perfil</button
+              ><button class="nav-item" data-view="settings">
+                <svg
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 7h18M3 17h18M8 4v6m8 4v6" />
+                </svg>
+                Configurações
+              </button>
             </nav>
             <div class="sidebar-bottom">
               <div class="help-card">
@@ -286,7 +417,7 @@
                 ☰
               </button>
               <div class="breadcrumbs">
-                Portal Novara <span>/</span> <strong id="breadcrumb">Visão geral</strong>
+                Novara <span>/</span> <strong id="breadcrumb">Visão geral</strong>
               </div>
               <div class="topbar-actions">
                 <button
@@ -308,7 +439,7 @@
                 <div class="page-heading">
                   <div>
                     <span class="eyebrow">PAINEL DE CONTROLE</span>
-                    <h1 id="greeting">Bom dia! 👋</h1>
+                    <h1 id="dashboardUserName"></h1>
                     <p>Confira o panorama dos chamados de suporte.</p>
                   </div>
                   <button class="btn primary" data-view="new">+ Novo chamado</button>
@@ -543,6 +674,45 @@
               </section>
 
               <!-- Controles de aparência e tamanho do texto. -->
+              <section id="view-users" class="app-view hidden">
+                <h1>Funcionários</h1>
+                <article class="panel form-panel">
+                  <form id="inviteForm">
+                    <label>Nome<input name="employee" required maxlength="80" /></label
+                    ><label
+                      >E-mail corporativo<input
+                        name="email"
+                        type="email"
+                        placeholder="nome@novarati.com"
+                        required /></label
+                    ><button class="btn primary">Criar convite</button>
+                  </form>
+                  <p class="hint">Convite simulado, válido por 24 horas neste navegador.</p>
+                  <a id="invitationLink" hidden>Abrir primeiro acesso do funcionário</a>
+                  <h2>Contas cadastradas</h2>
+                  <ul id="staffList"></ul>
+                </article>
+              </section>
+              <section id="view-profile" class="app-view hidden">
+                <div class="page-heading"><h1>Meu perfil</h1></div>
+                <article class="panel form-panel">
+                  <form id="profileForm">
+                    <label
+                      >Nome de exibição<input name="displayName" required maxlength="80"
+                    /></label>
+                    <label>Telefone<input type="tel" name="phone" maxlength="24" /></label>
+                    <label>Ramal<input name="extension" maxlength="8" /></label>
+                    <label
+                      >Foto de perfil (JPG ou PNG, até 1 MB)<input
+                        name="photo"
+                        type="file"
+                        accept="image/jpeg,image/png"
+                    /></label>
+                    <label><input type="checkbox" name="removePhoto" /> Remover foto atual</label>
+                    <button class="btn primary" type="submit">Salvar perfil</button>
+                  </form>
+                </article>
+              </section>
               <section id="view-settings" class="app-view hidden">
                 <div class="page-heading">
                   <div>
@@ -572,11 +742,17 @@
             </div>
           </div>
         </section>
+        <footer class="interno">
+          <strong
+            ><img class="marca" src="assets/novara.svg" alt="" /> Novara · Central de TI</strong
+          >
+          <span>Desenvolvido por Amanda Barros</span>
+        </footer>
       </main>
       <footer id="publicFooter" class="public-footer hidden">
-        <div class="brand">◈ Portal <span>Novara</span></div>
+        <div class="brand"><img class="marca" src="assets/novara.svg" alt="" /> Novara</div>
         <p>Suporte inteligente. Operações mais eficientes.</p>
-        <small>© 2026 Portal Novara • Protótipo acadêmico de Desenvolvimento de Interfaces.</small>
+        <small>© 2026 Novara • Protótipo acadêmico de Desenvolvimento de Interfaces.</small>
       </footer>
     </div>
 
