@@ -45,9 +45,11 @@ Abra o arquivo `index.html` em um navegador moderno, ou use uma extensão de ser
 
 ### Acesso demonstrativo
 
-**Colaborador:** `colaborador@demo.com` / `demo123`
+A Novara TI é a empresa fictícia do portal. Login, abertura de chamados e formulário de contato aceitam apenas endereços no domínio exato `@novarati.com`. A validação ocorre no navegador e não verifica a propriedade da conta.
 
-**Técnico:** `tecnico@demo.com` / `demo123`
+**Colaborador:** `colaborador@novarati.com` / `demo123`
+
+**Técnico:** `tecnico@novarati.com` / `demo123`
 
 Os dados e credenciais são fictícios. Não digite credenciais reais. O controle de perfil é apenas uma simulação na interface, não uma proteção de informações.
 

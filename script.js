@@ -7,6 +7,7 @@ const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selec
 const STORAGE_KEY = 'coredesk_tickets_v1';
 const THEME_KEY = 'coredesk_theme_v1';
 const FONT_KEY = 'coredesk_font_v1';
+const COMPANY_DOMAIN = 'novarati.com';
 const PROFILE_KEY = 'coredesk_demo_profile_v1';
 const statusList = ['Aberto', 'Em andamento', 'Aguardando retorno', 'Resolvido', 'Fechado'];
 const priorityList = ['Baixa', 'Média', 'Alta', 'Crítica'];
@@ -14,13 +15,13 @@ const categoryList = ['Hardware', 'Software', 'Rede', 'E-mail', 'Acesso', 'Impre
 const profiles = {
   colaborador: {
     name: 'Marina Costa',
-    email: 'colaborador@demo.com',
+    email: 'colaborador@' + COMPANY_DOMAIN,
     role: 'Colaborador',
     password: 'demo123',
   },
   tecnico: {
     name: 'Lucas Ferreira',
-    email: 'tecnico@demo.com',
+    email: 'tecnico@' + COMPANY_DOMAIN,
     role: 'Técnico de TI',
     password: 'demo123',
   },
@@ -28,13 +29,29 @@ const profiles = {
 
 // Chamados fictícios para preencher a demonstração no primeiro acesso.
 const samples = [
-  ['Notebook não liga', 'Hardware', 'Marina Costa', 'colaborador@demo.com', 'Alta', 'Aberto', 1],
-  ['Atualização do ERP', 'Software', 'Carlos Lima', 'carlos@demo.com', 'Média', 'Em andamento', 2],
+  [
+    'Notebook não liga',
+    'Hardware',
+    'Marina Costa',
+    'colaborador@novarati.com',
+    'Alta',
+    'Aberto',
+    1,
+  ],
+  [
+    'Atualização do ERP',
+    'Software',
+    'Carlos Lima',
+    'carlos@novarati.com',
+    'Média',
+    'Em andamento',
+    2,
+  ],
   [
     'Wi-Fi instável no escritório',
     'Rede',
     'Ana Souza',
-    'ana@demo.com',
+    'ana@novarati.com',
     'Crítica',
     'Aguardando retorno',
     3,
@@ -43,17 +60,17 @@ const samples = [
     'Erro no envio de mensagens',
     'E-mail',
     'Marina Costa',
-    'colaborador@demo.com',
+    'colaborador@novarati.com',
     'Alta',
     'Resolvido',
     4,
   ],
-  ['Desbloqueio de conta', 'Acesso', 'Bruno Melo', 'bruno@demo.com', 'Média', 'Fechado', 5],
+  ['Desbloqueio de conta', 'Acesso', 'Bruno Melo', 'bruno@novarati.com', 'Média', 'Fechado', 5],
   [
     'Impressora sem conexão',
     'Impressora',
     'Juliana Alves',
-    'juliana@demo.com',
+    'juliana@novarati.com',
     'Baixa',
     'Aberto',
     6,
@@ -62,18 +79,26 @@ const samples = [
     'Computador lento',
     'Hardware',
     'Marina Costa',
-    'colaborador@demo.com',
+    'colaborador@novarati.com',
     'Média',
     'Em andamento',
     7,
   ],
-  ['Instalação de antivírus', 'Software', 'Paulo Reis', 'paulo@demo.com', 'Baixa', 'Resolvido', 8],
-  ['VPN não conecta', 'Rede', 'Fernanda Dias', 'fernanda@demo.com', 'Alta', 'Em andamento', 9],
+  [
+    'Instalação de antivírus',
+    'Software',
+    'Paulo Reis',
+    'paulo@novarati.com',
+    'Baixa',
+    'Resolvido',
+    8,
+  ],
+  ['VPN não conecta', 'Rede', 'Fernanda Dias', 'fernanda@novarati.com', 'Alta', 'Em andamento', 9],
   [
     'Redefinição de senha',
     'Acesso',
     'Marina Costa',
-    'colaborador@demo.com',
+    'colaborador@novarati.com',
     'Baixa',
     'Fechado',
     10,
@@ -82,7 +107,7 @@ const samples = [
     'Caixa postal cheia',
     'E-mail',
     'Rafael Gomes',
-    'rafael@demo.com',
+    'rafael@novarati.com',
     'Média',
     'Aguardando retorno',
     11,
@@ -91,7 +116,7 @@ const samples = [
     'Instalação de certificado',
     'Outros',
     'Beatriz Rocha',
-    'beatriz@demo.com',
+    'beatriz@novarati.com',
     'Média',
     'Resolvido',
     12,
@@ -120,13 +145,24 @@ function createSamples() {
   });
 }
 
+// Atualiza endereços de demonstração salvos antes da adoção do domínio corporativo.
+function migrateDemoEmail(email) {
+  return email?.replace(/@demo\.com$/i, '@' + COMPANY_DOMAIN);
+}
+
 // Carrega os chamados do navegador ou inicializa os dados de exemplo.
 function loadTickets() {
   try {
     const existing = localStorage.getItem(STORAGE_KEY);
     if (existing !== null) {
       const parsed = JSON.parse(existing);
-      if (Array.isArray(parsed)) return parsed;
+      if (Array.isArray(parsed)) {
+        return parsed.map((ticket) => ({
+          ...ticket,
+          email: migrateDemoEmail(ticket.email),
+          createdBy: migrateDemoEmail(ticket.createdBy),
+        }));
+      }
     }
   } catch (error) {
     console.warn('Não foi possível ler dados locais.', error);
@@ -213,8 +249,19 @@ function setProfileChoice(role) {
   $('#loginPassword').value = p.password;
   $('#demoHint').textContent = `Demonstração: ${p.email} / ${p.password}`;
 }
+function validateCompanyEmail(field) {
+  const email = field.value.trim().toLowerCase();
+  const [mailbox, domain, extra] = email.split('@');
+  if (mailbox && domain === COMPANY_DOMAIN && extra === undefined) return true;
+
+  notify('Use um e-mail corporativo com @' + COMPANY_DOMAIN + '.');
+  field.focus();
+  return false;
+}
+
 function login(event) {
   event.preventDefault();
+  if (!validateCompanyEmail($('#loginEmail'))) return;
   const profile = profiles[loginChoice];
   if (
     $('#loginEmail').value.trim().toLowerCase() !== profile.email ||
@@ -448,6 +495,8 @@ function createTicket(event) {
   const form = event.currentTarget;
   if (!form.reportValidity()) return;
   const values = Object.fromEntries(new FormData(form));
+  if (!validateCompanyEmail(form.elements.email)) return;
+  values.email = values.email.trim().toLowerCase();
   values.title = values.title.trim();
   values.description = values.description.trim();
   values.requester = values.requester.trim();
@@ -653,6 +702,7 @@ function wireEvents() {
   $('#contactForm').addEventListener('submit', (event) => {
     event.preventDefault();
     if (!event.currentTarget.reportValidity()) return;
+    if (!validateCompanyEmail(event.currentTarget.elements.email)) return;
     notify('Formulário validado! Esta é uma demonstração: nenhuma mensagem foi enviada.');
     event.currentTarget.reset();
   });
