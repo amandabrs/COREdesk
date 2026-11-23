@@ -63,13 +63,13 @@ Para testar os dados de fábrica novamente, remova a chave `coredesk_tickets_v1`
 
 | Papel | Cor |
 |---|---|
-| Fundo principal | `#F8F6F3` |
+| Fundo principal | `#FAF8F0` |
 | Superfície | `#FFFFFF` |
-| Vinho (identidade e ação) | `#68263C` |
-| Dourado (detalhes) | `#B18C57` |
-| Grafite (texto) | `#27252B` |
+| Verde floresta (menu) | `#1B3528` |
+| Verde (ações) | `#276647` |
+| Areia (destaques) | `#E5D4AB` |
 
-O vinho comunica uma identidade visual sofisticada, enquanto os fundos claros facilitam a leitura e a organização da informação. O dourado é usado de forma comedida para não comprometer a legibilidade. Essas associações são escolhas de comunicação visual, não significados universais.
+O verde floresta diferencia a navegação e o verde médio identifica as ações. A areia destaca elementos secundários sobre superfícies claras. O tema escuro usa verdes mais profundos com texto claro.
 
 ## Acessibilidade
 

@@ -477,7 +477,7 @@ function renderReports() {
   renderHorizontal($('#priorityReport'), counts(list, 'priority', priorityList));
   const circle = document.createElement('div');
   circle.className = 'resolution-circle';
-  circle.style.background = `conic-gradient(#68263c ${rate}%, var(--surface2) ${rate}%)`;
+  circle.style.background = `conic-gradient(var(--brand) ${rate}%, var(--surface2) ${rate}%)`;
   circle.setAttribute('role', 'img');
   circle.setAttribute('aria-label', `${rate}% de chamados resolvidos ou fechados`);
   const content = document.createElement('div');

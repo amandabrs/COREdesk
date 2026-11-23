@@ -2,17 +2,16 @@
 
 /* Paleta, superfícies e escala tipográfica. */
 :root {
-  --bg: #f8f6f3;
+  --bg: #faf8f0;
   --surface: #fff;
-  --surface2: #f0ebea;
-  --wine: #68263c;
-  --winehover: #502033;
-  --wine-soft: #f4e9ee;
-  --gold: #b18c57;
-  --text: #27252b;
-  --muted: #625d63;
-  --line: #e7e0e2;
-  --shadow: 0 15px 45px rgba(59, 31, 43, 0.06);
+  --surface2: #f1eee3;
+  --brand: #276647;
+  --brand-soft: #e5eee5;
+  --sand: #e5d4ab;
+  --text: #202c24;
+  --muted: #505b50;
+  --line: #dedfd3;
+  --shadow: 0 15px 45px rgba(27, 53, 40, 0.06);
   --radius: 18px;
   --scale: 1;
   font-size: calc(16px * var(--scale));
@@ -21,16 +20,15 @@
 
 /* Ajustes de contraste e superfícies do tema escuro. */
 html[data-theme='dark'] {
-  --bg: #201d21;
-  --surface: #2b262c;
-  --surface2: #373039;
-  --wine: #e0a7ba;
-  --winehover: #f2bfd0;
-  --wine-soft: #493540;
-  --gold: #e3c49a;
-  --text: #fbf4f6;
-  --muted: #d1c4ca;
-  --line: #51464d;
+  --bg: #16241c;
+  --surface: #202f25;
+  --surface2: #2b3c31;
+  --brand: #a2d2af;
+  --brand-soft: #344f3c;
+  --sand: #e5d4ab;
+  --text: #f6f7ef;
+  --muted: #c7d2c6;
+  --line: #526357;
   --shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
   color-scheme: dark;
 }
@@ -99,7 +97,7 @@ p {
   color: var(--muted);
 }
 :focus-visible {
-  outline: 3px solid #b98a39;
+  outline: 3px solid #916a30;
   outline-offset: 3px;
 }
 .hidden {
@@ -120,14 +118,14 @@ p {
   font-size: 0.72rem;
   letter-spacing: 0.15em;
   font-weight: 800;
-  color: var(--wine);
+  color: var(--brand);
 }
 .brand {
   font:
     800 1.5rem Manrope,
     sans-serif;
   letter-spacing: -0.07em;
-  color: var(--wine);
+  color: var(--brand);
   white-space: nowrap;
 }
 .brand span {
@@ -158,11 +156,11 @@ p {
   transform: translateY(-2px);
 }
 .btn.primary {
-  background: #68263c;
+  background: #276647;
   color: #fff;
 }
 .btn.primary:hover {
-  background: #4d1d30;
+  background: #1e5138;
 }
 .btn.outline {
   border: 1px solid var(--line);
@@ -170,11 +168,11 @@ p {
   background: var(--surface);
 }
 .btn.outline:hover {
-  border-color: var(--wine);
+  border-color: var(--brand);
 }
 .btn.pale {
-  background: #f8eaf0;
-  color: #4e1d31;
+  background: #e5d4ab;
+  color: #1b3528;
 }
 .btn.small {
   padding: 0.55rem 0.7rem;
@@ -187,7 +185,7 @@ p {
 .text-button {
   border: 0;
   background: none;
-  color: var(--wine);
+  color: var(--brand);
   font-weight: 700;
   padding: 0.55rem;
   cursor: pointer;
@@ -235,14 +233,14 @@ p {
   margin: 1.4rem 0;
 }
 .hero h1 em {
-  color: var(--wine);
+  color: var(--brand);
   font-style: normal;
 }
 .dot {
   display: inline-block;
   width: 7px;
   height: 7px;
-  background: var(--gold);
+  background: var(--sand);
   border-radius: 50%;
   margin-right: 0.4rem;
 }
@@ -261,7 +259,7 @@ p {
 }
 .hero-proof span {
   font-weight: 800;
-  color: var(--wine);
+  color: var(--brand);
 }
 .hero-proof small {
   display: block;
@@ -276,7 +274,7 @@ p {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 20px;
-  box-shadow: 0 35px 80px rgba(85, 40, 56, 0.14);
+  box-shadow: 0 35px 80px rgba(27, 53, 40, 0.14);
   display: flex;
   overflow: hidden;
   transform: rotate(-2deg);
@@ -284,7 +282,7 @@ p {
 }
 .mock-sidebar {
   width: 70px;
-  background: #68263c;
+  background: #276647;
   padding: 1rem;
   display: flex;
   align-items: center;
@@ -299,7 +297,7 @@ p {
   display: block;
   width: 25px;
   height: 9px;
-  background: #aa7a8b;
+  background: #71947b;
   border-radius: 5px;
 }
 .mock-body {
@@ -321,7 +319,7 @@ p {
   margin: 2rem 0 1.2rem;
 }
 .mock-head span {
-  color: var(--wine);
+  color: var(--brand);
 }
 .mock-stats {
   display: grid;
@@ -361,11 +359,11 @@ p {
 .mock-bars i {
   width: 14px;
   min-height: 10%;
-  background: #b77c91;
+  background: #79a18a;
   border-radius: 5px 5px 0 0;
 }
 .mock-bars i:nth-child(even) {
-  background: #68263c;
+  background: #276647;
 }
 .mock-lines {
   display: flex;
@@ -411,8 +409,8 @@ p {
   display: grid;
   place-items: center;
   border-radius: 12px;
-  background: var(--wine-soft);
-  color: var(--wine);
+  background: var(--brand-soft);
+  color: var(--brand);
   font-size: 1.7rem;
   width: 55px;
   height: 55px;
@@ -452,14 +450,14 @@ p {
   grid-column: 1/-1;
 }
 .slide-art {
-  background: var(--wine-soft);
+  background: var(--brand-soft);
   height: 100px;
   width: 100%;
   border-radius: 18px;
   display: grid;
   place-items: center;
   font-size: 4rem;
-  color: var(--wine);
+  color: var(--brand);
 }
 .circle-btn {
   border: 1px solid var(--line);
@@ -468,7 +466,7 @@ p {
   height: 42px;
   min-width: 42px;
   background: var(--surface);
-  color: var(--wine);
+  color: var(--brand);
   font-size: 1.8rem;
 }
 .slide-dots {
@@ -485,7 +483,7 @@ p {
   background: var(--muted);
 }
 .slide-dots button[aria-current='true'] {
-  background: var(--wine);
+  background: var(--brand);
   width: 26px;
 }
 .step-grid > div {
@@ -494,7 +492,7 @@ p {
 }
 .step-grid strong {
   font-size: 2rem;
-  color: var(--wine);
+  color: var(--brand);
   font-family: Manrope;
 }
 .contact-section {
@@ -536,7 +534,7 @@ select {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--wine);
+  border-color: var(--brand);
 }
 textarea {
   resize: vertical;
@@ -567,7 +565,7 @@ textarea {
   grid-template-columns: 45% 55%;
 }
 .login-visual {
-  background: #68263c;
+  background: #276647;
   color: white;
   display: flex;
   flex-direction: column;
@@ -583,10 +581,10 @@ textarea {
 }
 .login-visual p,
 .login-visual .eyebrow {
-  color: #f0d8df;
+  color: #e5d4ab;
 }
 .login-visual small {
-  color: #f0d8df;
+  color: #e5d4ab;
 }
 .login-panel {
   display: flex;
@@ -620,9 +618,9 @@ textarea {
   color: var(--text);
 }
 .profile-choice.selected {
-  border-color: var(--wine);
-  background: var(--wine-soft);
-  color: var(--wine);
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  color: var(--brand);
   font-weight: 800;
 }
 .password-field {
@@ -660,7 +658,7 @@ textarea {
   position: sticky;
   top: 0;
   height: 100vh;
-  background: #572339;
+  background: #1b3528;
   color: #fff;
   width: 245px;
   flex: none;
@@ -675,7 +673,7 @@ textarea {
 .side-label {
   font-size: 0.65rem;
   letter-spacing: 0.14em;
-  color: #dcc3ce;
+  color: #e5d4ab;
   font-weight: 800;
   padding: 0 1rem;
   margin: 1rem 0;
@@ -694,7 +692,7 @@ textarea {
   border: 0;
   background: transparent;
   border-radius: 10px;
-  color: #f9e9ef;
+  color: #f7f7ef;
   font-weight: 600;
   font-size: 0.87rem;
 }
@@ -705,7 +703,7 @@ textarea {
 }
 .nav-item:hover,
 .nav-item.active {
-  background: #81435a;
+  background: #276647;
   color: white;
 }
 .sidebar-bottom {
@@ -715,11 +713,11 @@ textarea {
   margin: 1rem 0;
   padding: 1rem;
   border-radius: 14px;
-  background: #794059;
+  background: #2b503c;
 }
 .help-card p {
   font-size: 0.78rem;
-  color: #f2dfe7;
+  color: #e5d4ab;
 }
 .app-main {
   flex: 1;
@@ -755,8 +753,8 @@ textarea {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: var(--wine-soft);
-  color: var(--wine);
+  background: var(--brand-soft);
+  color: var(--brand);
   display: grid;
   place-items: center;
   font-weight: 800;
@@ -809,8 +807,8 @@ textarea {
   height: 42px;
   display: grid;
   place-items: center;
-  background: var(--wine-soft);
-  color: var(--wine);
+  background: var(--brand-soft);
+  color: var(--brand);
   border-radius: 11px;
   font-size: 1.3rem;
   margin-bottom: 1.3rem;
@@ -930,7 +928,7 @@ textarea {
 .bar {
   width: min(46px, 85%);
   min-height: 5px;
-  background: #87445a;
+  background: #276647;
   border-radius: 8px 8px 0 0;
 }
 .bar-item span {
@@ -957,15 +955,15 @@ textarea {
 .track > i {
   display: block;
   height: 100%;
-  background: var(--wine);
+  background: var(--brand);
   border-radius: 20px;
 }
 .priority-row:nth-child(3) .track > i,
 .horizontal-row:nth-child(3) .track > i {
-  background: #c59a65;
+  background: #9c793e;
 }
 .priority-row:nth-child(4) .track > i {
-  background: #9f6579;
+  background: #648b71;
 }
 .table-wrap {
   overflow: auto;
@@ -993,14 +991,14 @@ td strong {
   font-weight: 800;
 }
 td .link-button {
-  color: var(--wine);
+  color: var(--brand);
   font-weight: 800;
   background: transparent;
   border: 0;
   padding: 0.4rem;
 }
 .ticket-id {
-  color: var(--wine);
+  color: var(--brand);
   font-weight: 800;
 }
 
@@ -1091,7 +1089,7 @@ td .link-button {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(23, 13, 19, 0.65);
+  background: rgba(22, 36, 28, 0.65);
   z-index: 100;
   display: grid;
   place-items: center;
@@ -1157,7 +1155,7 @@ td .link-button {
   bottom: 1.5rem;
   right: 1.5rem;
   z-index: 200;
-  background: #302333;
+  background: #1b3528;
   color: white;
   padding: 1rem 1.3rem;
   border-radius: 12px;
@@ -1376,7 +1374,7 @@ td .link-button {
   border-radius: 18px;
 }
 .flow-illustration figcaption {
-  color: var(--muted, #6e6470);
+  color: var(--muted, #505b50);
   font-size: 0.8rem;
   margin-top: 0.6rem;
 }
