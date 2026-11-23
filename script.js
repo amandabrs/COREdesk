@@ -1,5 +1,5 @@
 'use strict';
-// COREdesk: protótipo front-end. Todos os dados são locais e demonstrativos.
+// Portal Novara: protótipo front-end. Todos os dados são locais e demonstrativos.
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 

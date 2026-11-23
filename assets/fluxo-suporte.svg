@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="180" viewBox="0 0 960 180" role="img" aria-labelledby="title desc">
-<title id="title">Fluxo de atendimento COREdesk</title><desc id="desc">Três etapas: solicitação, acompanhamento e resolução.</desc>
+<title id="title">Fluxo de atendimento do Portal Novara</title><desc id="desc">Três etapas: solicitação, acompanhamento e resolução.</desc>
 <rect width="960" height="180" rx="22" fill="#faf8f0"/>
 <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
 <g transform="translate(25 20)"><rect width="270" height="140" rx="18" fill="#fff" stroke="#dedfd3"/><circle cx="135" cy="41" r="24" fill="#e5eee5"/><path d="M125 34h20M125 43h20M125 52h13" stroke="#276647" stroke-width="3" stroke-linecap="round"/><text x="135" y="89" fill="#202c24" font-size="18" font-weight="bold">Abrir chamado</text><text x="135" y="111" fill="#505b50" font-size="12">Registrar a solicitação</text></g>

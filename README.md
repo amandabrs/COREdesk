@@ -1,4 +1,4 @@
-# COREdesk — Central Inteligente de Chamados de TI
+# Portal Novara — Central Inteligente de Chamados de TI
 
 Protótipo acadêmico front-end para registro e gerenciamento de chamados de suporte técnico, desenvolvido com HTML, CSS e JavaScript puro.
 
