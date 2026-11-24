@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
-/* Paleta, superfícies e escala tipográfica. */
+/* Variáveis globais: centralizam cores e tamanhos para facilitar manutenção e manter consistência visual. */
 :root {
   --bg: #fffaf5;
   --surface: #fff;
@@ -18,7 +18,7 @@
   color-scheme: light;
 }
 
-/* Ajustes de contraste e superfícies do tema escuro. */
+/* Tema escuro: ao definir data-theme="dark" no HTML, o JS faz o CSS usar esta segunda paleta sem duplicar a página. */
 html[data-theme='dark'] {
   --bg: #251c24;
   --surface: #332731;
@@ -33,7 +33,7 @@ html[data-theme='dark'] {
   color-scheme: dark;
 }
 
-/* Estilos globais e componentes compartilhados. */
+/* Regras de base para toda a interface. box-sizing: border-box faz padding e bordas entrarem no cálculo da largura. */
 * {
   box-sizing: border-box;
 }
@@ -96,10 +96,12 @@ h3 {
 p {
   color: var(--muted);
 }
+/* Contorno visível ao navegar com Tab: ajuda a identificar onde o foco do teclado está. */
 :focus-visible {
   outline: 3px solid #916a30;
   outline-offset: 3px;
 }
+/* A navegação em JavaScript aplica/remove hidden para alternar as telas do protótipo. */
 .hidden {
   display: none !important;
 }
@@ -151,6 +153,7 @@ p {
     background 0.2s,
     border-color 0.2s;
 }
+/* Microinteração: deslocamento discreto do botão ao passar o mouse, com transição definida acima. */
 .btn:hover {
   text-decoration: none;
   transform: translateY(-2px);
@@ -653,7 +656,7 @@ textarea {
   min-height: 100vh;
 }
 
-/* Navegação e estrutura da área interna. */
+/* Área interna: a sidebar organiza os destinos do sistema; Flexbox deixa os itens em coluna. */
 .sidebar {
   position: sticky;
   top: 0;
