@@ -1,5 +1,7 @@
-// Contas fictícias para demonstração local. A administração real requer um servidor.
+// Módulo opcional de contas fictícias. Tudo ocorre neste navegador: não existe envio real de convite,
+// sincronização entre notebooks ou autenticação segura. Uma aplicação real precisa de servidor e banco de dados.
 const accountsKey = 'novara_staff_demo_v1';
+// JSON.parse lê as contas salvas como texto JSON; se a chave não existir, utiliza lista vazia.
 const readAccounts = () => JSON.parse(localStorage.getItem(accountsKey) || '[]');
 const writeAccounts = (accounts) => localStorage.setItem(accountsKey, JSON.stringify(accounts));
 profiles.admin = {
@@ -7,6 +9,7 @@ profiles.admin = {
   email: 'admin@novarati.com',
   role: 'Administrador de TI',
 };
+// Insere o funcionário no objeto profiles para que a interface conheça seu nome, e-mail e papel.
 function registerProfile(account) {
   profiles[account.email] = { name: account.name, email: account.email, role: 'Colaborador' };
 }
@@ -20,6 +23,8 @@ function enterAccount(id) {
   showPage('app');
   openView('dashboard');
 }
+// PBKDF2 com SHA-256 deriva um hash da senha e um salt; não guarda a senha cadastrada em texto puro.
+// Apesar disso, a validação inteiramente no cliente NÃO oferece autenticação real nem proteção dos dados.
 async function derivePassword(password, salt) {
   const encoder = new TextEncoder();
   const key = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, [
@@ -32,6 +37,7 @@ async function derivePassword(password, salt) {
   );
   return Array.from(new Uint8Array(bits), (v) => v.toString(16).padStart(2, '0')).join('');
 }
+// Reconstrói a lista visual dos funcionários, identificando contas ativas, pendentes ou expiradas.
 function updateDirectory() {
   $('#staffList').replaceChildren(
     ...readAccounts().map((account) => {
@@ -50,6 +56,7 @@ function updateDirectory() {
     }),
   );
 }
+// Executa os controles de administração quando a estrutura HTML já foi carregada.
 document.addEventListener('DOMContentLoaded', () => {
   $('#adminDemo').onclick = () => {
     enterAccount('admin');
@@ -57,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDirectory();
   };
   $('#usersNav').addEventListener('click', updateDirectory);
+  // O administrador cria um convite fictício por token com duração de 24 horas, salvo localmente.
   $('#inviteForm').onsubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -80,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.reset();
     updateDirectory();
   };
+  // Confere o token na URL (#convite=...) e abre o cadastro inicial se houver convite local válido.
   function openInvite() {
     const token = location.hash.slice('#convite='.length);
     if (!location.hash.startsWith('#convite=')) return;
@@ -97,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.addEventListener('hashchange', openInvite);
   openInvite();
+  // Na ativação, cria o hash, marca a conta como ativa e inicia a sessão demonstrativa.
   $('#activateForm').onsubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -119,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     history.replaceState(null, '', location.href.split('#')[0]);
     enterAccount(account.email);
   };
+  // Login de funcionário cadastrado: compara o hash local, sem contato com qualquer servidor.
   $('#staffLogin').onsubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
