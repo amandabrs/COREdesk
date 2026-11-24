@@ -1,9 +1,11 @@
 'use strict';
 // Portal Novara: protótipo front-end. Todos os dados são locais e demonstrativos.
+// Atalhos do DOM: $ procura um elemento; $ (abaixo) devolve uma lista de elementos.
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
-// Chaves de armazenamento e opções usadas nos formulários.
+// Chaves de armazenamento identificam dados no navegador. localStorage mantém chamados/tema/fonte;
+// sessionStorage guarda o perfil apenas durante a sessão da aba. As listas padronizam status, prioridade e categoria.
 const STORAGE_KEY = 'coredesk_tickets_v1';
 const THEME_KEY = 'coredesk_theme_v1';
 const FONT_KEY = 'coredesk_font_v1';
@@ -27,7 +29,8 @@ const profiles = {
   },
 };
 
-// Chamados fictícios para preencher a demonstração no primeiro acesso.
+// Doze exemplos permitem demonstrar dashboard e filtros antes do primeiro cadastro.
+// Não são novos dados a cada atualização: loadTickets reutiliza o que já existe no navegador.
 const samples = [
   [
     'Notebook não liga',
@@ -122,6 +125,7 @@ const samples = [
     12,
   ],
 ];
+// Transforma cada linha resumida de samples em um objeto de chamado com ID, datas e responsável.
 function createSamples() {
   return samples.map(([title, category, requester, email, priority, status, day], index) => {
     const opened = new Date();
@@ -150,7 +154,8 @@ function migrateDemoEmail(email) {
   return email?.replace(/@demo\.com$/i, '@' + COMPANY_DOMAIN);
 }
 
-// Carrega os chamados do navegador ou inicializa os dados de exemplo.
+// Lê o JSON salvo e converte em array (JSON.parse). Só usa os exemplos se não houver dados válidos;
+// assim novos registros e alterações permanecem após recarregar a página.
 function loadTickets() {
   try {
     const existing = localStorage.getItem(STORAGE_KEY);
@@ -172,7 +177,8 @@ function loadTickets() {
   return initial;
 }
 
-// Estado da sessão, da navegação e dos componentes interativos.
+// Estado em memória: tickets é o array atual; activeProfile define a visualização e currentView a tela ativa.
+// let é usado porque esses valores são atualizados durante a navegação.
 let tickets = loadTickets();
 let activeProfile = null;
 let loginChoice = 'colaborador';
@@ -183,7 +189,8 @@ let toastTimer;
 const counts = (list, key, labels) =>
   labels.map((label) => ({ label, value: list.filter((t) => t[key] === label).length }));
 
-// Confirma se a gravação funcionou para que alterações possam ser revertidas em caso de erro.
+// JSON.stringify converte o array em texto para o localStorage. O try/catch trata falhas de gravação;
+// retornar true/false permite desfazer a alteração se o salvamento falhar.
 function saveTickets(list = tickets) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
@@ -228,7 +235,7 @@ function textElement(tag, value, className = '') {
   return node;
 }
 
-// Alterna entre o site institucional, o login e a área interna.
+// A classe CSS hidden oculta as seções não selecionadas. As telas continuam no mesmo index.html.
 function showPage(which) {
   $('#home').classList.toggle('hidden', which !== 'home');
   $('#loginPage').classList.toggle('hidden', which !== 'login');
@@ -310,7 +317,7 @@ function logout() {
   $('#loginHeading').focus();
 }
 
-// O técnico vê todos os chamados. O colaborador vê os chamados vinculados ao seu perfil.
+// Este filtro simula diferenças entre perfis na interface; não é controle de acesso seguro, pois os dados ficam no navegador.
 function visibleTickets() {
   return ['tecnico', 'admin'].includes(activeProfile)
     ? tickets
@@ -376,7 +383,8 @@ function countCard(label, value, icon) {
   return card;
 }
 
-// Calcula os indicadores e monta a tabela de chamados recentes.
+// filter(...).length conta os tickets de cada status. Em seguida o DOM é atualizado com replaceChildren;
+// os gráficos usam os mesmos tickets que a tabela, sem números fixos.
 function renderDashboard() {
   const list = visibleTickets();
   const metrics = [
@@ -437,7 +445,8 @@ function ticketRow(ticket, short = false) {
   return tr;
 }
 
-// Combina a busca por texto com os filtros de status, prioridade e categoria.
+// .filter() seleciona registros que satisfazem TODAS as opções preenchidas (operador &&).
+// Se um campo não foi preenchido, a condição !campo permite ignorar aquele filtro.
 function renderTickets() {
   const term = $('#ticketSearch').value.trim().toLocaleLowerCase('pt-BR'),
     status = $('#filterStatus').value,
@@ -479,7 +488,8 @@ function renderHorizontal(target, data, rowClass = 'horizontal-row') {
   });
 }
 
-// Usa os mesmos chamados da listagem para calcular os totais do relatório.
+// A taxa de resolução é (Resolvido + Fechado) / Total * 100; a condição evita divisão por zero.
+// Os gráficos são preenchidos dinamicamente com a contagem de categorias, status e prioridades.
 function renderReports() {
   const list = visibleTickets();
   const resolved = list.filter((t) => ['Resolvido', 'Fechado'].includes(t.status)).length;
@@ -505,10 +515,13 @@ function renderReports() {
   $('#resolutionReport').replaceChildren(circle);
 }
 
-// Gera um identificador a partir do maior número entre os chamados existentes.
+// Exemplo: CD-0013. padStart completa com zeros; usar o maior ID atual evita repetir IDs existentes,
+// embora seja apenas uma estratégia local e não um identificador global de banco de dados.
 function nextId() {
   return `CD-${String(Math.max(0, ...tickets.map((t) => Number(t.id.replace(/\D/g, '')) || 0)) + 1).padStart(4, '0')}`;
 }
+// Recebe o submit do formulário: evita recarregar a página, valida campos, monta o objeto,
+// adiciona com unshift() no começo do array e tenta salvar antes de atualizar a interface.
 function createTicket(event) {
   event.preventDefault();
   const form = event.currentTarget;
@@ -543,7 +556,8 @@ function createTicket(event) {
   notify(`Chamado ${entry.id} registrado com sucesso!`);
 }
 
-// Monta os detalhes e disponibiliza ações de gerenciamento ao perfil técnico.
+// O modal mostra atributos do ticket selecionado. Apenas perfis técnicos/admin veem opções de status e exclusão;
+// é uma regra demonstrativa da interface, sem autorização em servidor.
 function openTicketModal(id) {
   const ticket = tickets.find((t) => t.id === id);
   if (!ticket) return;
@@ -645,7 +659,8 @@ function refreshCurrentView() {
   else if (currentView === 'reports') renderReports();
 }
 
-// Aplica e salva as preferências de leitura no navegador.
+// O tema altera data-theme no elemento html, ativando variáveis do CSS. A fonte muda --scale;
+// ambas as preferências são persistidas no localStorage.
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem(THEME_KEY, theme);
@@ -693,7 +708,8 @@ function renderSlide() {
   });
 }
 
-// Conecta os controles da interface aos eventos do navegador.
+// addEventListener associa cliques, alterações de filtros e envios de formulário às funções.
+// Também gerencia Escape/Tab do modal, botão de tema, tamanho da fonte e menu móvel.
 async function savePersonalProfile(event) {
   event.preventDefault();
   const form = event.currentTarget;
@@ -818,7 +834,8 @@ function wireEvents() {
   });
 }
 
-// Restaura as preferências e abre a tela correspondente à sessão.
+// init executa após DOMContentLoaded, quando o HTML já está disponível para querySelector.
+// Liga eventos, restaura tema/fonte, recupera sessão e abre a tela inicial.
 function init() {
   wireEvents();
   renderSlide();
