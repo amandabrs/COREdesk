@@ -11,6 +11,7 @@
     <script src="accounts.js?v=038c07e" defer></script>
   </head>
   <body>
+    <!-- Link de acessibilidade: aparece ao receber foco pelo teclado e permite ir direto ao conteúdo principal. -->
     <a class="skip" href="#main">Pular para o conteúdo</a>
 
     <!-- Cabeçalho, conteúdo principal e rodapé da área institucional. -->
@@ -28,7 +29,7 @@
         </button>
       </header>
       <main id="main">
-        <!-- Apresentação da plataforma, benefícios, carrossel e formulário demonstrativo. -->
+        <!-- A página institucional reúne recursos obrigatórios do projeto: cartões, carrossel, imagens e formulário de contato. -->
         <section id="home" class="public-page hidden">
           <section class="hero">
             <div class="hero-content">
@@ -191,7 +192,7 @@
           </section>
         </section>
 
-        <!-- Acesso de demonstração com seleção de perfil. -->
+        <!-- O login apenas simula papéis (Colaborador e Técnico). A autenticação real exigiria validação no servidor. -->
         <section id="loginPage" class="login-page hidden" aria-labelledby="loginHeading">
           <div class="login-visual">
             <a href="#" class="brand light-brand" data-action="home"
@@ -281,7 +282,7 @@
           </div>
         </section>
 
-        <!-- Área interna com navegação e telas exibidas conforme a ação do usuário. -->
+        <!-- As telas internas compartilham este HTML. O script.js alterna a classe hidden para mostrar a tela escolhida, sem abrir outro arquivo. -->
         <section id="appPage" class="app-page hidden" aria-label="Sistema Novara">
           <aside id="sidebar" class="sidebar">
             <div class="sidebar-top">
@@ -434,7 +435,7 @@
               </div>
             </header>
             <div class="app-content" id="appContent">
-              <!-- Os indicadores e gráficos são preenchidos pelo JavaScript. -->
+              <!-- Os contêineres com IDs kpiGrid, statusChart e priorityChart começam vazios: o script.js preenche seus dados dinamicamente. -->
               <section id="view-dashboard" class="app-view">
                 <div class="page-heading">
                   <div>
@@ -486,7 +487,7 @@
                 </article>
               </section>
 
-              <!-- Consulta de chamados com busca e filtros combináveis. -->
+              <!-- Os IDs ticketSearch, filterStatus, filterPriority e filterCategory são usados pelo JS para filtrar a tabela sem recarregar a página. -->
               <section id="view-tickets" class="app-view hidden">
                 <div class="page-heading">
                   <div>
@@ -557,7 +558,7 @@
                 </article>
               </section>
 
-              <!-- Formulário de abertura de chamado. -->
+              <!-- O navegador faz validações básicas (required, minlength). O script.js complementa as regras e salva o novo chamado no localStorage. -->
               <section id="view-new" class="app-view hidden">
                 <div class="page-heading">
                   <div>
@@ -643,7 +644,7 @@
                 </article>
               </section>
 
-              <!-- Indicadores calculados com os chamados visíveis ao perfil. -->
+              <!-- Os relatórios usam os mesmos dados da listagem; o JS calcula totais e taxa de resolução, evitando indicadores inventados. -->
               <section id="view-reports" class="app-view hidden">
                 <div class="page-heading">
                   <div>
@@ -673,7 +674,7 @@
                 </div>
               </section>
 
-              <!-- Controles de aparência e tamanho do texto. -->
+              <!-- A seção de funcionários e convites é apenas demonstrativa: accounts.js armazena tudo neste navegador, sem envio real. -->
               <section id="view-users" class="app-view hidden">
                 <h1>Funcionários</h1>
                 <article class="panel form-panel">
@@ -713,6 +714,7 @@
                   </form>
                 </article>
               </section>
+              <!-- Preferências de acessibilidade: os botões abaixo chamam funções do script.js que alteram variáveis CSS e armazenam a escolha. -->
               <section id="view-settings" class="app-view hidden">
                 <div class="page-heading">
                   <div>
@@ -756,7 +758,7 @@
       </footer>
     </div>
 
-    <!-- Janela de detalhes preenchida ao selecionar um chamado. -->
+    <!-- Modal: o JavaScript insere os detalhes do chamado e cuida de abrir, fechar, tecla Escape e retorno do foco. -->
     <div id="modalBackdrop" class="modal-backdrop hidden">
       <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-head">
@@ -770,6 +772,7 @@
         <div id="modalActions" class="modal-actions"></div>
       </section>
     </div>
+    <!-- Mensagens curtas são anunciadas também por leitores de tela, graças a role=status e aria-live. -->
     <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
   </body>
 </html>
